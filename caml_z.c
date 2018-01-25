@@ -27,11 +27,21 @@
 #include <math.h>
 #include <stdint.h>
 
+#define xstringify(s) stringify(s)
+#define stringify(s) #s
+
 #ifdef HAS_GMP
 #include <gmp.h>
+#define MP_LIB "GMP " xstringify(__GNU_MP_VERSION) "." xstringify(__GNU_MP_VERSION_MINOR)
 #endif
 #ifdef HAS_MPIR
 #include <mpir.h>
+#define MP_LIB "MPIR"
+#endif
+#ifdef HAS_BSDNT
+#include <bsdnt/zz.h>
+#include "bsdnt_shim.h"
+#define MP_LIB "BSDNT"
 #endif
 
 #include "z_features.h"
@@ -2678,8 +2688,7 @@ CAMLprim value ml_z_powm(value base, value exp, value mod)
 
 CAMLprim value ml_z_powm_sec(value base, value exp, value mod)
 {
-#ifndef HAS_MPIR
-#if __GNU_MP_VERSION >= 5
+#if defined(HAS_GMP) && __GNU_MP_VERSION >= 5
   CAMLparam3(base,exp,mod);
   CAMLlocal1(r);
   mpz_t mbase, mexp, mmod;
@@ -2700,13 +2709,7 @@ CAMLprim value ml_z_powm_sec(value base, value exp, value mod)
   MAYBE_UNUSED(base);
   MAYBE_UNUSED(exp);
   MAYBE_UNUSED(mod);
-  caml_invalid_argument("Z.powm_sec: not available, needs GMP version >= 5");
-#endif
-#else
-  MAYBE_UNUSED(base);
-  MAYBE_UNUSED(exp);
-  MAYBE_UNUSED(mod);
-  caml_invalid_argument("Z.powm_sec: not available in MPIR, needs GMP version >= 5");
+  caml_invalid_argument("Z.powm_sec: not available in " MP_LIB ", needs GMP version >= 5");
 #endif
 }
 
@@ -2803,7 +2806,6 @@ CAMLprim value ml_z_invert(value base, value mod)
 /* XXX should we support the following?
    mpz_divisible_p
    mpz_congruent_p
-   mpz_powm_sec
    mpz_rootrem
    mpz_jacobi
    mpz_legendre

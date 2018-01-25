@@ -58,6 +58,7 @@ where options include:
   -noasm               disable platform-specific asm code
   -gmp                 use GMP library (default if found)
   -mpir                use MPIR library instead of GMP
+  -bsdnt               use BSDNT library instead of GMP
   -perf                enable performance statistics
 
 Environment variables that affect configuration:
@@ -97,6 +98,8 @@ while : ; do
             gmp='gmp';;
         -mpir|--mpir)
             gmp='mpir';;
+        -bsdnt|--bsdnt)
+            gmp='bsdnt';;
         -perf|--perf)
             perf='yes';;
         *)
@@ -363,6 +366,17 @@ if test "$gmp" = 'mpir' -o "$gmp" = 'auto'; then
             gmp='OK'
             cclib="$cclib -lmpir"
             ccdef="-DHAS_MPIR $ccdef"
+        fi
+    fi
+fi
+if test "$gmp" = 'bsdnt' -o "$gmp" = 'auto'; then
+    checkinc bsdnt/zz.h
+    if test $? -eq 1; then
+        checklib bsdnt
+        if test $? -eq 1; then
+            gmp='OK'
+            cclib="$cclib -lbsdnt"
+            ccdef="-DHAS_BSDNT $ccdef"
         fi
     fi
 fi

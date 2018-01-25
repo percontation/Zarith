@@ -62,6 +62,8 @@ endif
 
 all: $(TOINSTALL)
 
+.NOTPARALLEL:
+
 tests:
 	make -C tests test
 
@@ -143,7 +145,7 @@ depend: $(AUTOGEN)
 
 include depend
 
-$(CSRC:%.c=%.$(OBJSUFFIX)): z_features.h zarith.h
+$(CSRC:%.c=%.$(OBJSUFFIX)): z_features.h zarith.h bsdnt_shim.h
 
 .PHONY: clean
 .PHONY: tests
