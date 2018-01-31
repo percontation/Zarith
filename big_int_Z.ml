@@ -45,7 +45,7 @@ let mult_int_big_int x y = Z.mul (Z.of_int x) y
 
 let square_big_int x = Z.mul x x
 
-let sqrt_big_int = Z.sqrt
+(* let sqrt_big_int = Z.sqrt *)
 
 let quomod_big_int = Z.ediv_rem
 

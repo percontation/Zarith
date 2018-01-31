@@ -82,3 +82,15 @@ static inline mp_size_t mpn_gcdext(mp_limb_t *gp,
 #define mpz_perfect_square_p(x) ((void)x, caml_failwith("Z: perfect_square unavailable in BSDNT"), 0)
 #define mpz_probab_prime_p(x, y) ((void)x, (void)y, caml_failwith("Z: probab_prime_p unavailable in BSDNT"), 0)
 #define mpz_nextprime(x, y) ((void)x, (void)y, caml_failwith("Z: nextprime unavailable in BSDNT"))
+
+/* DELETE ME: Changing these symbol names to verify that my ML program doesn't use these. */
+#define ml_z_sqrt _disabled_ml_z_sqrt
+#define ml_z_sqrt_rem _disabled_ml_z_sqrt_rem
+#define ml_z_powm _disabled_ml_z_powm
+#define ml_z_powm_sec _disabled_ml_z_powm_sec
+#define ml_z_root _disabled_ml_z_root
+#define ml_z_perfect_power _disabled_ml_z_perfect_power
+#define ml_z_perfect_square _disabled_ml_z_perfect_square
+#define ml_z_probab_prime _disabled_ml_z_probab_prime
+#define ml_z_nextprime _disabled_ml_z_nextprime
+#define ml_z_invert _disabled_ml_z_invert

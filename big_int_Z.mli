@@ -35,7 +35,7 @@ val pred_big_int : Z.t -> Z.t
 val mult_big_int : Z.t -> Z.t -> Z.t
 val mult_int_big_int : int -> Z.t -> Z.t
 val square_big_int : Z.t -> Z.t
-val sqrt_big_int : Z.t -> Z.t
+(* val sqrt_big_int : Z.t -> Z.t *)
 val quomod_big_int : Z.t -> Z.t -> Z.t * Z.t
 val div_big_int : Z.t -> Z.t -> Z.t
 val mod_big_int : Z.t -> Z.t -> Z.t
